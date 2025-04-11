@@ -1,13 +1,21 @@
 import javax.swing.*;
+import java.awt.*;
+import screens.DashBoard;
+import models.*;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Application");
-        JLabel label = new JLabel("Hello world!");
-        frame.add(label);
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Monitor de Consumo");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(900, 500);
+            frame.setLayout(new BorderLayout());
+            frame.setLocationRelativeTo(null);
 
-        frame.setSize(300, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+            DashBoard dashBoard = new DashBoard();
+            frame.add(dashBoard, BorderLayout.CENTER);
+
+            frame.setVisible(true);
+        });
     }
 }
