@@ -4,6 +4,7 @@ public class Device {
     private int id;
     private String name;
     private Category category;
+    //TODO: Add time of use
 
     public Device(int id, String name, Category category) {
         this.id = id;

@@ -12,6 +12,8 @@ public class Main {
             frame.setLayout(new BorderLayout());
             frame.setLocationRelativeTo(null);
 
+            //TODO: add login and register logic and protect routes
+
             DashBoard dashBoard = new DashBoard();
             frame.add(dashBoard, BorderLayout.CENTER);
 

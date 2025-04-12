@@ -136,7 +136,7 @@ public class DashBoard extends JPanel {
     }
 
     // Custom rounded border class
-    class RoundedBorder implements Border {
+    static  class RoundedBorder implements Border {
         private int radius;
 
         RoundedBorder(int radius) {
