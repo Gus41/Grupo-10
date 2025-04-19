@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import screens.DashBoard;
+import screens.LoginRegisterScreen;
 import models.*;
 
 public class Main {
@@ -8,14 +9,15 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Monitor de Consumo");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(900, 500);
+            frame.setSize(900, 600);
             frame.setLayout(new BorderLayout());
             frame.setLocationRelativeTo(null);
 
-            //TODO: add login and register logic and protect routes
-
+            //screens
+            LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
             DashBoard dashBoard = new DashBoard();
-            frame.add(dashBoard, BorderLayout.CENTER);
+
+            frame.add(loginRegisterScreen, BorderLayout.CENTER);
 
             frame.setVisible(true);
         });

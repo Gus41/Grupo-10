@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserRepository {
 
-    private static final String FILE_NAME = "users.json";
+    private static final String FILE_NAME = "src/db/users.json";
     private List<User> users;
 
     public UserRepository() {
@@ -15,6 +15,7 @@ public class UserRepository {
     }
 
     public void saveUsers() {
+        System.out.println("Saving users");
         try (Writer writer = new FileWriter(FILE_NAME)) {
             writer.write("[\n");
             for (int i = 0; i < users.size(); i++) {
@@ -31,60 +32,77 @@ public class UserRepository {
             }
             writer.write("]");
         } catch (IOException e) {
-            //print error?
             System.out.println(e.toString());
         }
+        System.out.println("Users saved in file");
     }
-
-    private List<User> loadUsers() {
+    public List<User> loadUsers() {
         List<User> userList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
-            StringBuilder jsonContent = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                jsonContent.append(line);
+
+        try {
+            File file = new File(FILE_NAME);
+            if (!file.exists()) {
+                file.createNewFile();
+                try (FileWriter writer = new FileWriter(file)) {
+                    writer.write("[]");
+                }
             }
 
-            String content = jsonContent.toString();
-            if (content.startsWith("[") && content.endsWith("]")) {
-                String jsonArray = content.substring(1, content.length() - 1).trim();
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                StringBuilder jsonContent = new StringBuilder();
+                while ((line = reader.readLine()) != null) {
+                    jsonContent.append(line);
+                }
 
-                if (!jsonArray.isEmpty()) {
-                    String[] userStrings = jsonArray.split("},\\s*\\{");
+                String content = jsonContent.toString().trim();
+                if (content.startsWith("[") && content.endsWith("]")) {
+                    String jsonArray = content.substring(1, content.length() - 1).trim();
 
-                    for (String userString : userStrings) {
-                        userString = userString.replace("{", "").replace("}", "").trim();
+                    if (!jsonArray.isEmpty()) {
+                        String[] userStrings = jsonArray.split("},\\s*\\{");
 
-                        String[] userFields = userString.split(",\\s*");
+                        for (String userString : userStrings) {
+                            userString = userString.replace("{", "").replace("}", "").trim();
 
-                        String username = null, password = null, contact = null;
+                            String[] userFields = userString.split(",\\s*");
 
-                        for (String field : userFields) {
-                            if (field.startsWith("\"username\":")) {
-                                username = field.split(":")[1].replace("\"", "").trim();
-                            } else if (field.startsWith("\"password\":")) {
-                                password = field.split(":")[1].replace("\"", "").trim();
-                            } else if (field.startsWith("\"contact\":")) {
-                                contact = field.split(":")[1].replace("\"", "").trim();
+                            String username = null, password = null, contact = null;
+
+                            for (String field : userFields) {
+                                if (field.startsWith("\"username\":")) {
+                                    username = field.split(":")[1].replace("\"", "").trim();
+                                } else if (field.startsWith("\"password\":")) {
+                                    password = field.split(":")[1].replace("\"", "").trim();
+                                } else if (field.startsWith("\"contact\":")) {
+                                    contact = field.split(":")[1].replace("\"", "").trim();
+                                }
                             }
-                        }
 
-                        if (username != null && password != null && contact != null) {
-                            userList.add(new User(username, password, contact));
+                            if (username != null && password != null && contact != null) {
+                                userList.add(new User(username, password, contact));
+                            }
                         }
                     }
                 }
             }
         } catch (IOException e) {
-            System.out.println("IO error");
+            System.out.println("Erro ao ler o arquivo:");
+            e.printStackTrace();
         }
+
         return userList;
     }
 
+
     public void addUser(User user) {
         users.add(user);
+        System.out.println("adding user");
         saveUsers();
-        //add a function to add only users to file?
+    }
+
+    public List<User> getUsers(){
+        return this.users;
     }
 
 
