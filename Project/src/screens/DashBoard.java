@@ -1,5 +1,7 @@
 package screens;
 
+import services.ScreenService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,6 +57,7 @@ public class DashBoard extends JPanel {
         addButton.setForeground(Color.WHITE);
         addButton.setFocusPainted(false);
         addButton.setBorder(new RoundedBorder(10));
+        addButton.addActionListener(e-> ScreenService.changeScreen(new AddDeviceScreen()));
 
         deviceList.add(Box.createVerticalStrut(20));
         deviceList.add(addButton);

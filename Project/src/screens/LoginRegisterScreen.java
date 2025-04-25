@@ -2,6 +2,7 @@ package screens;
 
 import models.User;
 import repositories.UserRepository;
+import services.ScreenService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,8 @@ public class LoginRegisterScreen extends JPanel {
     private JTextField contactField;
     private JLabel messageLabel;
     private UserRepository userRepository;
+    private ScreenService screenService = new ScreenService();
+
 
     public LoginRegisterScreen() {
         userRepository = new UserRepository();
@@ -147,6 +150,7 @@ public class LoginRegisterScreen extends JPanel {
         if (matched.isPresent()) {
             messageLabel.setText("Login successful!");
             messageLabel.setForeground(new Color(0, 200, 0));
+            ScreenService.changeScreen(new DashBoard());
         } else {
             messageLabel.setText("Invalid credentials.");
             messageLabel.setForeground(Color.RED);

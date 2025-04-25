@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+
+import screens.AddDeviceScreen;
 import screens.DashBoard;
 import screens.LoginRegisterScreen;
-import models.*;
+import services.ScreenService;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,11 +15,10 @@ public class Main {
             frame.setLayout(new BorderLayout());
             frame.setLocationRelativeTo(null);
 
-            //screens
-            LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
-            DashBoard dashBoard = new DashBoard();
+            ScreenService.initialize(frame);
 
-            frame.add(loginRegisterScreen, BorderLayout.CENTER);
+            LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
+            ScreenService.changeScreen(new AddDeviceScreen());
 
             frame.setVisible(true);
         });
