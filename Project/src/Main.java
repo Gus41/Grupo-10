@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import screens.AddDeviceScreen;
+import screens.AddEstablishmentScreen;
 import screens.DashBoard;
 import screens.LoginRegisterScreen;
 import services.ScreenService;
@@ -18,7 +19,7 @@ public class Main {
             ScreenService.initialize(frame);
 
             LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
-            ScreenService.changeScreen(new AddDeviceScreen());
+            ScreenService.changeScreen(new AddEstablishmentScreen());
 
             frame.setVisible(true);
         });
