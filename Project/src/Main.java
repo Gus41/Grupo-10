@@ -15,11 +15,10 @@ public class Main {
             frame.setSize(900, 600);
             frame.setLayout(new BorderLayout());
             frame.setLocationRelativeTo(null);
-
             ScreenService.initialize(frame);
 
             LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
-            ScreenService.changeScreen(new AddEstablishmentScreen());
+            ScreenService.changeScreen(loginRegisterScreen);
 
             frame.setVisible(true);
         });

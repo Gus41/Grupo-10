@@ -5,5 +5,40 @@
     "devices": [
     ],
     "users": []
+  },
+  {
+    "id": 0,
+    "name": "teste",
+    "devices": [
+    ],
+    "users": []
+  },
+  {
+    "id": 0,
+    "name": "username",
+    "devices": [
+    ],
+    "users": []
+  },
+  {
+    "id": 0,
+    "name": "username2",
+    "devices": [
+    ],
+    "users": []
+  },
+  {
+    "id": 0,
+    "name": "username3",
+    "devices": [
+    ],
+    "users": []
+  },
+  {
+    "id": 0,
+    "name": "username4",
+    "devices": [
+    ],
+    "users": ["username4"]
   }
 ]

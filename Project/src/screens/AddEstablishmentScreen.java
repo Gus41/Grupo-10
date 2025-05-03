@@ -3,6 +3,7 @@ package screens;
 import models.Establishment;
 import models.Device;
 import repositories.EstablishmentRepository;
+import services.ScreenService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +11,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddEstablishmentScreen extends JPanel {
-    //TODO: Add a constructo that recives the user object
+
+    String username;
 
     private JTextField nameField;
     private EstablishmentRepository establishmentRepository = new EstablishmentRepository();
 
-    public AddEstablishmentScreen() {
+    public AddEstablishmentScreen(String username) {
+        this.username = username;
+
         setLayout(new GridBagLayout());
         setBackground(new Color(45, 45, 45));
 
@@ -69,8 +73,9 @@ public class AddEstablishmentScreen extends JPanel {
 
                 Device[] devices = {};
                 Establishment newEstablishment = new Establishment(0, name, devices);
+                newEstablishment.addUser(username);
                 establishmentRepository.addEstablishment(newEstablishment);
-                JOptionPane.showMessageDialog(AddEstablishmentScreen.this, "Added establishment: " + newEstablishment.getName());
+                ScreenService.changeScreen(new DashBoard(newEstablishment));
                 nameField.setText("");
             }
         });

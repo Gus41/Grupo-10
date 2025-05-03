@@ -1,6 +1,8 @@
 package screens;
 
+import models.Establishment;
 import models.User;
+import repositories.EstablishmentRepository;
 import repositories.UserRepository;
 import services.ScreenService;
 
@@ -148,9 +150,9 @@ public class LoginRegisterScreen extends JPanel {
                 .findFirst();
 
         if (matched.isPresent()) {
-            messageLabel.setText("Login successful!");
-            messageLabel.setForeground(new Color(0, 200, 0));
-            ScreenService.changeScreen(new DashBoard());
+            EstablishmentRepository repo = new EstablishmentRepository();
+            Establishment establishment = repo.getEstablishmentByUser(username);
+            ScreenService.changeScreen(new DashBoard(establishment));
         } else {
             messageLabel.setText("Invalid credentials.");
             messageLabel.setForeground(Color.RED);
@@ -177,8 +179,7 @@ public class LoginRegisterScreen extends JPanel {
         } else {
             User newUser = new User(username, password, contact);
             userRepository.addUser(newUser);
-            messageLabel.setText("User registered!");
-            messageLabel.setForeground(new Color(0, 200, 0));
+            ScreenService.changeScreen(new AddEstablishmentScreen(username));
         }
     }
 

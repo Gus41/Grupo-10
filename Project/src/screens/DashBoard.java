@@ -1,5 +1,7 @@
 package screens;
 
+import models.Device;
+import models.Establishment;
 import services.ScreenService;
 
 import javax.swing.*;
@@ -17,7 +19,7 @@ public class DashBoard extends JPanel {
 
     private JLabel deviceDetailsLabel;
 
-    public DashBoard() {
+    public DashBoard(Establishment establishment) {
         setLayout(new BorderLayout());
 
         // ======= Left Panel =======
@@ -35,9 +37,9 @@ public class DashBoard extends JPanel {
         deviceList.setBackground(leftPanel.getBackground());
         deviceList.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        String[] devices = {"Refrigerator", "Shower", "Computer"};
-        for (String device : devices) {
-            JButton btn = new JButton(device);
+        Device[] devices = establishment.getDevices();
+        for (Device device : devices) {
+            JButton btn = new JButton(device.getName());
             btn.setAlignmentX(Component.CENTER_ALIGNMENT);
             btn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
             btn.setBackground(new Color(60, 60, 60));
@@ -45,7 +47,7 @@ public class DashBoard extends JPanel {
             btn.setFocusPainted(false);
             btn.setBorder(new RoundedBorder(10)); // Rounded border added back
 
-            btn.addActionListener(e -> showDeviceDetails(device));
+            btn.addActionListener(e -> showDeviceDetails(device.toString()));
             deviceList.add(btn);
             deviceList.add(Box.createVerticalStrut(10));
         }
