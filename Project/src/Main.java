@@ -1,10 +1,6 @@
-import javax.swing.*;
 import java.awt.*;
-
-import screens.AddDeviceScreen;
-import screens.AddEstablishmentScreen;
+import javax.swing.*;
 import screens.DashBoard;
-import screens.LoginRegisterScreen;
 import services.ScreenService;
 
 public class Main {
@@ -17,9 +13,9 @@ public class Main {
             frame.setLocationRelativeTo(null);
 
             ScreenService.initialize(frame);
-
-            LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
-            ScreenService.changeScreen(new AddEstablishmentScreen());
+            // ScreenService.changeScreen(new DashBoard());
+            // LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
+            ScreenService.changeScreen(new DashBoard());
 
             frame.setVisible(true);
         });

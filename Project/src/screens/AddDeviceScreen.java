@@ -1,18 +1,18 @@
 package screens;
 
-import models.Category;
-import models.Device;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
+import models.Category;
+import models.Device;
+import repositories.AddDeviceRepository;
 
 public class AddDeviceScreen extends JPanel {
 
     private JTextField nameField;
+    private JTextField powerField;
+    private JTextField timeField;
     private JComboBox<String> categoryComboBox;
     private JTextField newCategoryField;
     private List<Category> categories;
@@ -46,6 +46,34 @@ public class AddDeviceScreen extends JPanel {
         nameField.setBackground(new Color(255, 255, 255));
         nameField.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
         formPanel.add(nameField);
+        formPanel.add(Box.createVerticalStrut(15));
+
+        JLabel powerLabel = new JLabel("Power Device:");
+        powerLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        powerLabel.setForeground(Color.WHITE);
+        formPanel.add(powerLabel);
+
+        powerField = new JTextField();
+        powerField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+        powerField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        powerField.setForeground(Color.BLACK);
+        powerField.setBackground(new Color(255, 255, 255));
+        powerField.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
+        formPanel.add(powerField);
+        formPanel.add(Box.createVerticalStrut(15));
+
+        JLabel timeLabel = new JLabel("Time of Use");
+        timeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        timeLabel.setForeground(Color.WHITE);
+        formPanel.add(timeLabel);
+
+        timeField = new JTextField();
+        timeField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+        timeField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        timeField.setForeground(Color.BLACK);
+        timeField.setBackground(new Color(255, 255, 255));
+        timeField.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
+        formPanel.add(timeField);
         formPanel.add(Box.createVerticalStrut(15));
 
         JLabel categoryLabel = new JLabel("Category:");
@@ -103,7 +131,10 @@ public class AddDeviceScreen extends JPanel {
 
         addButton.addActionListener(e -> {
             String name = nameField.getText();
-            Category selectedCategory = (Category) categoryComboBox.getSelectedItem();
+            Double power = Double.valueOf(powerField.getText());
+            Double time = Double.valueOf(timeField.getText());
+
+            String selectedCategory = (String) categoryComboBox.getSelectedItem();
 
             if (name.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill in the device name.", "Validation", JOptionPane.WARNING_MESSAGE);
@@ -116,16 +147,15 @@ public class AddDeviceScreen extends JPanel {
                     JOptionPane.showMessageDialog(this, "Please enter a valid category name.", "Validation", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                // Cria a nova categoria
-                Category newCategory = new Category(categories.size() + 1, newCategoryName);
-                categories.add(newCategory);
-                selectedCategory = newCategory;
+                newCategoryName = selectedCategory;
                 updateCategoryComboBox();
             }
 
-            Device newDevice = new Device(0, name, selectedCategory);
+            Device newDevice = new Device(0, name, selectedCategory,power, time);
+            AddDeviceRepository addDeviceRepository = new AddDeviceRepository();
+            addDeviceRepository.saveDevice(newDevice);
 
-            JOptionPane.showMessageDialog(this, "Added device: " + newDevice.getName() + " in category " + newDevice.getCategory().getName());
+            JOptionPane.showMessageDialog(this, "Added device: " + newDevice.getName() + " in category " + newDevice.getCategory());
 
             nameField.setText("");
             newCategoryField.setText("");
@@ -141,8 +171,7 @@ public class AddDeviceScreen extends JPanel {
 
     private void updateCategoryComboBox() {
         categoryComboBox.removeAllItems();
-        for (Category category : categories) {
-            categoryComboBox.addItem(category.getName());
-        }
+        categoryComboBox.addItem("Eletrodomésticos");
+        categoryComboBox.addItem("Eletrônicos");
     }
 }

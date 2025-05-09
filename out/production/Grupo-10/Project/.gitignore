@@ -1,7 +1,3 @@
-db/devices.json
-db/establishments.json
-db/users.json
-
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/

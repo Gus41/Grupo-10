@@ -1,13 +1,12 @@
 package repositories;
-import models.User;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import models.User;
 
 public class UserRepository {
 
-    private static final String FILE_NAME = "src/db/users.json";
+    private static final String FILE_NAME = "../src/db/users.json";
     private List<User> users;
 
     public UserRepository() {

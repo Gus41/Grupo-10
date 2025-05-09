@@ -1,16 +1,15 @@
 package repositories;
 
-import models.Category;
-import models.Establishment;
-import models.Device;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import models.Category;
+import models.Device;
+import models.Establishment;
 
 public class EstablishmentRepository {
 
-    private static final String FILE_NAME = "src/db/establishments.json";
+    private static final String FILE_NAME = "../src/db/establishments.json";
     private List<Establishment> establishments;
 
     public EstablishmentRepository() {

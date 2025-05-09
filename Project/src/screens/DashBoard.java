@@ -1,21 +1,20 @@
 package screens;
 
-import services.ScreenService;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.border.Border;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-
+import models.Device;
+import repositories.AddDeviceRepository;
+import services.ScreenService;
 
 public class DashBoard extends JPanel {
 
     private JLabel deviceDetailsLabel;
+    private Device currentDevice;
 
     public DashBoard() {
         setLayout(new BorderLayout());
@@ -35,9 +34,13 @@ public class DashBoard extends JPanel {
         deviceList.setBackground(leftPanel.getBackground());
         deviceList.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        String[] devices = {"Refrigerator", "Shower", "Computer"};
-        for (String device : devices) {
-            JButton btn = new JButton(device);
+        // String[] devices = {"Refrigerator", "Shower", "Computer"};
+
+        AddDeviceRepository deviceRepository = new AddDeviceRepository();
+        java.util.List<Device> devices = deviceRepository.getAllDevices();
+
+        for (Device device : devices) {
+            JButton btn = new JButton(device.getName());
             btn.setAlignmentX(Component.CENTER_ALIGNMENT);
             btn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
             btn.setBackground(new Color(60, 60, 60));
@@ -125,7 +128,7 @@ public class DashBoard extends JPanel {
                 }
             });
 
-            btn.addActionListener(e -> JOptionPane.showMessageDialog(this, "Filter: " + filter));
+            btn.addActionListener(e -> showConsumptionByFilter(filter));
 
             rightPanel.add(btn);
             rightPanel.add(Box.createVerticalStrut(10));
@@ -134,8 +137,29 @@ public class DashBoard extends JPanel {
         add(rightPanel, BorderLayout.EAST);
     }
 
-    private void showDeviceDetails(String deviceName) {
-        deviceDetailsLabel.setText("Details for: " + deviceName);
+    private void showConsumptionByFilter(String filter){
+        Double consumption = this.currentDevice.getConsumptionByDay();
+        if(filter == "Day"){
+            deviceDetailsLabel.setText("The consumption by day is: " + String.valueOf(consumption) + "KW/h.");   
+        }
+        else if(filter == "Week"){
+            deviceDetailsLabel.setText("The consumption by week is: " + String.valueOf(consumption*7) + "KW/h.");   
+        }
+        else if(filter == "Month"){
+            deviceDetailsLabel.setText("The consumption by month is: " + String.valueOf(consumption*30) + "KW/h.");   
+        }       
+        else if(filter == "Year"){
+            deviceDetailsLabel.setText("The consumption by year is: " + String.valueOf(consumption*365) + "KW/h.");   
+        }       
+    }
+
+    private void showDeviceDetails(Device currentDevice) {
+        deviceDetailsLabel.setText("Details for: " + currentDevice.getName());
+        this.currentDevice = currentDevice;
+    }
+
+    private void AddDeviceRepository() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // Custom rounded border class
@@ -145,6 +169,7 @@ public class DashBoard extends JPanel {
         RoundedBorder(int radius) {
             this.radius = radius;
         }
+
 
         public Insets getBorderInsets(Component c) {
             return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
