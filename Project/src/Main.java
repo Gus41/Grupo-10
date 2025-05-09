@@ -1,6 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
-import screens.DashBoard;
+import screens.LoginRegisterScreen;
 import services.ScreenService;
 
 public class Main {
@@ -15,7 +15,7 @@ public class Main {
             ScreenService.initialize(frame);
             // ScreenService.changeScreen(new DashBoard());
             // LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
-            ScreenService.changeScreen(new DashBoard());
+            ScreenService.changeScreen(new LoginRegisterScreen());
 
             frame.setVisible(true);
         });
