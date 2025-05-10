@@ -42,7 +42,18 @@ public class EstablishmentRepository {
                 }
 
                 writer.write("    ],\n");
-                writer.write("    \"users\": []\n"); // TODO: Add users array
+                writer.write("    \"users\": [");
+                String[] users = establishment.getUsers();
+                if (users != null && users.length > 0) {
+                    for (int j = 0; j < users.length; j++) {
+                        writer.write("\"" + users[j] + "\"");
+                        if (j < users.length - 1) {
+                            writer.write(", ");
+                        }
+                    }
+                }
+                writer.write("]\n");
+
                 writer.write("  }");
                 if (i < establishments.size() - 1) {
                     writer.write(",");
@@ -90,6 +101,7 @@ public class EstablishmentRepository {
                             int id = -1;
                             String name = null;
                             List<Device> devices = new ArrayList<>();
+                            List<String> users = new ArrayList<>();
 
                             for (String field : fields) {
                                 if (field.startsWith("\"id\":")) {
@@ -124,11 +136,21 @@ public class EstablishmentRepository {
                                             }
                                         }
                                     }
+                                } else if (field.startsWith("\"users\":")) {
+                                    //TODO: if an establishment has more than an user, will return a error here
+                                    String usersArr = field.substring(field.indexOf("[") + 1, field.lastIndexOf("]")).trim();
+
+                                    usersArr = usersArr.replace("\"", "").trim();
+
+                                    System.out.println(usersArr);
+                                    users.add(usersArr);
+
                                 }
                             }
 
-                            if (id != -1 && name != null) {
+                            if (id != -1 && name != null && !users.isEmpty()) {
                                 Establishment establishment = new Establishment(id, name, devices.toArray(new Device[0]));
+                                establishment.setUsers(users.toArray(new String[0]));
                                 establishmentList.add(establishment);
                             }
                         }
@@ -140,6 +162,7 @@ public class EstablishmentRepository {
             e.printStackTrace();
         }
 
+        System.out.println(establishmentList);
         return establishmentList;
     }
 
@@ -162,4 +185,21 @@ public class EstablishmentRepository {
             }
         }
     }
+    public Establishment getEstablishmentByUser(String userName) {
+        System.out.println(userName);
+        for (Establishment establishment : establishments) {
+            if (establishment.getUsers() != null) {
+                for (String user: establishment.getUsers()){
+                    System.out.println(user);
+                    if(userName.equals(user)){
+                        return establishment;
+                    }
+                }
+            }else{
+                System.out.println("sem users");
+            }
+        }
+        return null;
+    }
+
 }

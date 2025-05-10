@@ -11,11 +11,16 @@ public class Main {
             frame.setSize(900, 600);
             frame.setLayout(new BorderLayout());
             frame.setLocationRelativeTo(null);
-
             ScreenService.initialize(frame);
+
             // ScreenService.changeScreen(new DashBoard());
             // LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
             ScreenService.changeScreen(new LoginRegisterScreen());
+
+
+            LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
+            ScreenService.changeScreen(loginRegisterScreen);
+
 
             frame.setVisible(true);
         });

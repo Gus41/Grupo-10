@@ -37,12 +37,32 @@ public class Establishment {
     }
 
 
+    public String[] getUsers() {
+        return users;
+    }
+
+    public void addUser(String username) {
+        if (this.users == null) {
+            this.users = new String[] { username };
+        } else {
+            String[] newUsers = new String[this.users.length + 1];
+            System.arraycopy(this.users, 0, newUsers, 0, this.users.length);
+            newUsers[this.users.length] = username;
+            this.users = newUsers;
+        }
+    }
+
+
     public void addDevice(Device device) {
         int length = devices.length;
         Device[] newDevices = new Device[length + 1];
         System.arraycopy(devices, 0, newDevices, 0, length);
         newDevices[length] = device;
         this.devices = newDevices;
+    }
+
+    public void setUsers(String[] users) {
+        this.users = users;
     }
 
     @Override
