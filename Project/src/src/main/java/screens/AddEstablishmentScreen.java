@@ -1,23 +1,9 @@
 package screens;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
+import javax.swing.*;
 import model.Device;
 import model.Establishment;
 import repositories.EstablishmentRepository;
@@ -85,7 +71,7 @@ public class AddEstablishmentScreen extends JPanel {
                 }
 
                 Device[] devices = {};
-                Establishment newEstablishment = new Establishment();
+                Establishment newEstablishment = new Establishment(0, name, devices);
                 //newEstablishment.addUser(username);
                 establishmentRepository.addEstablishment(newEstablishment);
                 ScreenService.changeScreen(new DashBoard(newEstablishment));

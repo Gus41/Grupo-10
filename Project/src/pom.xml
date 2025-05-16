@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Coordenadas do Projeto (Obrigatório) -->
+    <groupId>org.ucs.trabalho_faculdade</groupId>  <!-- Geralmente o domínio reverso da sua organização -->
+    <artifactId>Grupo-10</artifactId> <!-- Nome do seu projeto (sem espaços) -->
+    <version>1.0-SNAPSHOT</version> <!-- Versão do seu projeto -->
+    <packaging>jar</packaging> <!-- ou 'war' para projetos web, 'pom' para projetos pai, etc. -->
+
+    <!-- Propriedades (Opcional, mas útil) -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>22</maven.compiler.source> <!-- Sua versão do Java (ex: 8, 11, 17) -->
+        <maven.compiler.target>22</maven.compiler.target> <!-- Sua versão do Java (ex: 8, 11, 17) -->
+    </properties>
+
+    <!-- Dependências (Aqui você adicionará bibliotecas externas) -->
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.13.1</version> 
+        </dependency>
+        <!-- Adicione outras dependências aqui -->
+    </dependencies>
+
+    <!-- Configurações de Build (Opcional, para plugins e customizações) -->
+    <build>
+        <plugins>
+            <!-- Plugin para compilação (já implícito, mas pode ser configurado) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version> <!-- Verifique a versão mais recente -->
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <!-- Adicione outros plugins aqui (ex: para criar JAR executável, testes, etc.) -->
+        </plugins>
+    </build>
+</project>

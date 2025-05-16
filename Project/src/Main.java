@@ -1,5 +1,9 @@
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import screens.AddEstablishmentScreen;
 import screens.LoginRegisterScreen;
 import services.ScreenService;
 
@@ -15,11 +19,14 @@ public class Main {
 
             // ScreenService.changeScreen(new DashBoard());
             // LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
-            ScreenService.changeScreen(new LoginRegisterScreen());
+            //ScreenService.changeScreen(new LoginRegisterScreen());
 
 
             LoginRegisterScreen loginRegisterScreen = new LoginRegisterScreen();
-            ScreenService.changeScreen(loginRegisterScreen);
+            //ScreenService.changeScreen(new AddDeviceScreen());
+            ScreenService.changeScreen(new AddEstablishmentScreen("username"));
+            //ScreenService.changeScreen(new AddDeviceScreen());
+            
 
 
             frame.setVisible(true);

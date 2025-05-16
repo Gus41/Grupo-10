@@ -1,26 +1,12 @@
 package screens;
 
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
+import services.ScreenService;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -28,7 +14,6 @@ import javax.swing.border.EmptyBorder;
 import model.Device;
 import model.Establishment;
 import repositories.AddDeviceRepository;
-import services.ScreenService;
 
 public class DashBoard extends JPanel {
 
@@ -64,9 +49,9 @@ public class DashBoard extends JPanel {
         java.util.List<Device> devices = deviceRepository.getAllDevices();
 
 
-        java.util.List<Device> dev = establishment.getDevices();
+        java.util.List<Device> devices = establishment.getDevices();
 
-        for (Device device : dev) {
+        for (Device device : devices) {
             JButton btn = new JButton(device.getName());
             btn.setAlignmentX(Component.CENTER_ALIGNMENT);
             btn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -75,7 +60,7 @@ public class DashBoard extends JPanel {
             btn.setFocusPainted(false);
             btn.setBorder(new RoundedBorder(10)); // Rounded border added back
 
-            btn.addActionListener(e -> showDeviceDetails(device));
+            btn.addActionListener(e -> showDeviceDetails(device.toString()));
             deviceList.add(btn);
             deviceList.add(Box.createVerticalStrut(10));
         }

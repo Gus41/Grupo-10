@@ -2,15 +2,21 @@
   {
     "id": 0,
     "name": "Computador",
-    "category": "Eletrônicos",
     "power": 10.0,
     "timeUse": 10.0
   },
   {
     "id": 0,
     "name": "Máquina de lavar roupas",
-    "category": "Eletrodomésticos",
     "power": 25.0,
-    "timeUse": 10.0
+    "timeUse": 10.0,
+    "category": "ELETRODOMESTICOS"
+  },
+  {
+    "id": 0,
+    "name": "teste1",
+    "power": 10.0,
+    "timeUse": 1.0,
+    "category": "ELETRODOMESTICOS"
   }
 ]

@@ -1,19 +1,29 @@
-package models;
+package model;
 
 public class Device {
     private int id;
     private String name;
-    private String category;
+    private Category category;
     private double power;
     private double timeUse;
-    //TODO: Add time of use
 
-    public Device(int id, String name, String category, double power, double timeUse) {
+    public Device(int id, String name, Category category, double power, double timeUse) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.power = power;
         this.timeUse = timeUse;
+    }
+
+    public Device(String name, double power, double timeUse, Category category) {
+        this.name = name;
+        this.power = power;
+        this.timeUse = timeUse;
+        this.category = category;
+    }
+
+    public Device(){
+
     }
 
     public int getId() {
@@ -24,11 +34,11 @@ public class Device {
         this.id = id;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -59,6 +69,18 @@ public class Device {
     public double getConsumptionByDay(){
         return this.power * this.timeUse;
     }
+
+    @Override
+     public String toString() {
+        return "Device{" +
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", category=" + category +
+               ",power=" + power +
+               ",timeuse=" + timeUse +
+               '}';
         
+}
+
 }
 
