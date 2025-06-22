@@ -87,7 +87,7 @@ public class DashBoard extends JPanel {
         addButton.setForeground(Color.WHITE);
         addButton.setFocusPainted(false);
         addButton.setBorder(new RoundedBorder(10));
-        addButton.addActionListener(e-> ScreenService.changeScreen(new AddDeviceScreen()));
+        addButton.addActionListener(e-> ScreenService.changeScreen(new AddDeviceScreen(establishment)));
 
         deviceList.add(Box.createVerticalStrut(20));
         deviceList.add(addButton);

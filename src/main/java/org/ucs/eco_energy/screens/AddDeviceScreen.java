@@ -19,11 +19,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import org.ucs.eco_energy.models.Category;
-import org.ucs.eco_energy.models.Device; // Import your enum
+import org.ucs.eco_energy.models.Device;
+import org.ucs.eco_energy.models.Establishment;
 import org.ucs.eco_energy.repositories.AddDeviceRepository;
 import org.ucs.eco_energy.repositories.EstablishmentRepository;
 
 import org.ucs.eco_energy.services.ScreenService;
+import org.ucs.eco_energy.screens.DashBoard;
 
 public class AddDeviceScreen extends JPanel {
 
@@ -33,7 +35,7 @@ public class AddDeviceScreen extends JPanel {
     private JComboBox<Category> categoryComboBox; 
     //private JTextField newCategoryField; 
     
-    public AddDeviceScreen() {
+    public AddDeviceScreen(Establishment establishment) {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         setBackground(new Color(45, 45, 45));
@@ -180,34 +182,15 @@ public class AddDeviceScreen extends JPanel {
 
             
             Device newDevice = new Device(name, power, time, selectedEnumCategory);
-            // If using default constructor and setters:
-            //Device newDevice = new Device();
-            //newDevice.setName(name);
-            //newDevice.setPower(power);
-            //newDevice.setTimeOfUse(time);
-            //newDevice.setCategory(selectedEnumCategory);
 
-
-            // --- Save Device (Repository) ---
             AddDeviceRepository addDeviceRepository = new AddDeviceRepository();
             try {
-                addDeviceRepository.saveDevice(newDevice); // Make sure your repository handles Device object correctly
+                addDeviceRepository.saveDevice(newDevice,establishment);
+                System.out.println("Antes de trocar de tela");
+                ScreenService.changeScreen(new DashBoard(establishment));
+                System.out.println("Antes de trocar de tela");
 
-                JOptionPane.showMessageDialog(this,
-                        "Added device: " + newDevice.getName() +
-                        " in category: " + newDevice.getCategory().getDescription(), // Use getDisplayName() for the message
-                        "Device Added", JOptionPane.INFORMATION_MESSAGE);
 
-                // --- Clear Fields ---
-                nameField.setText("");
-                powerField.setText("");
-                timeField.setText("");
-                // newCategoryField.setText(""); // If you implement this field
-                if (categoryComboBox.getItemCount() > 0) {
-                    categoryComboBox.setSelectedIndex(0);
-                }
-                // createNewCategoryCheckBox.setSelected(false);
-                // newCategoryField.setEnabled(false); // If you implement the "new category" feature
             } catch (Exception ex) { // Catch potential exceptions from saving
                 JOptionPane.showMessageDialog(this, "Error saving device: " + ex.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace(); // For debugging

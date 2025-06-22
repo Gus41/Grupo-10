@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import org.ucs.eco_energy.models.Establishment;
 
 public class AddDeviceRepository {
     private static final String FILE_NAME = "./src/main/java/org/ucs/eco_energy/db/devices.json"; // Ensure this path is correct relative to your execution context
@@ -25,49 +26,56 @@ public class AddDeviceRepository {
         // Initialize Gson, setPrettyPrinting for readable JSON output
         this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
-
-    public void saveDevice(Device device) {
+    public void saveDevice(Device device, Establishment establishment) {
         List<Device> deviceList;
         File dbFile = new File(FILE_NAME);
 
+        EstablishmentRepository establishmentRepository = new EstablishmentRepository();
+
         try {
-            // 1. Read existing content and parse or initialize List<Device>
+            // Inicializa lista e variável para rastrear o maior ID
+            deviceList = new ArrayList<>();
+            int maxDeviceId = 0;
+
             if (dbFile.exists() && dbFile.length() > 0) {
                 try (FileReader fileReader = new FileReader(dbFile);
-                     JsonReader jsonReader = new JsonReader(fileReader)) { // Use JsonReader for fine-grained control
+                     JsonReader jsonReader = new JsonReader(fileReader)) {
 
-                    // Check if the file is effectively empty (e.g. just whitespace, or literally "null")
-                    // JsonReader.peek() helps determine if there's actual JSON content
-                    if (jsonReader.peek() == com.google.gson.stream.JsonToken.NULL ||
-                        jsonReader.peek() == com.google.gson.stream.JsonToken.END_DOCUMENT) {
-                        deviceList = new ArrayList<>();
-                    } else {
+                    if (jsonReader.peek() != com.google.gson.stream.JsonToken.NULL &&
+                            jsonReader.peek() != com.google.gson.stream.JsonToken.END_DOCUMENT) {
+
                         Type listType = new TypeToken<ArrayList<Device>>() {}.getType();
                         deviceList = gson.fromJson(jsonReader, listType);
-                        // If the file contained "null" as its content, gson.fromJson might return null.
                         if (deviceList == null) {
                             deviceList = new ArrayList<>();
                         }
+
+                        // Encontra o maior ID existente
+                        for (Device d : deviceList) {
+                            if (d.getId() > maxDeviceId) {
+                                maxDeviceId = d.getId();
+                            }
+                        }
                     }
+
                 } catch (JsonSyntaxException e) {
-                    // This can happen if the file content is not valid JSON array for devices
                     System.err.println("JsonSyntaxException: Malformed JSON in " + FILE_NAME + ". Initializing a new list. Error: " + e.getMessage());
                     deviceList = new ArrayList<>();
                 } catch (IOException e) {
                     System.err.println("IOException while reading " + FILE_NAME + ". Initializing a new list. Error: " + e.getMessage());
                     e.printStackTrace();
-                    deviceList = new ArrayList<>(); // Fallback to new list on read error
+                    deviceList = new ArrayList<>();
                 }
-            } else {
-                deviceList = new ArrayList<>();
             }
 
-            // 2. Add the new device object to the list
-            // Gson handles the conversion of the Device object to JSON internally
+            // Define ID único para o novo device
+            int newDeviceId = maxDeviceId + 1;
+            device.setId(newDeviceId);
+            System.out.println("Assigned ID " + newDeviceId + " to new device: " + device.getName());
+
             deviceList.add(device);
 
-            // 3. Write the updated list back to the file
-            try (Writer writer = new FileWriter(FILE_NAME)) { // Overwrites the file
+            try (Writer writer = new FileWriter(FILE_NAME)) {
                 gson.toJson(deviceList, writer);
                 System.out.println("Device saved successfully to " + FILE_NAME);
             } catch (IOException e) {
@@ -75,13 +83,22 @@ public class AddDeviceRepository {
                 e.printStackTrace();
             }
 
-        } catch (Exception e) { // Catch-all for any other unexpected errors
+            try {
+                establishmentRepository.addDeviceToEstablishment(establishment.getId(), device);
+                System.out.println("Device associated to establishment " + establishment.getId() + " successfully.");
+            } catch (Exception e) {
+                System.err.println("Failed to associate device to establishment: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
             System.err.println("An unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    // Optional: A method to retrieve all devices (demonstrates deserialization)
+
+
     public List<Device> getAllDevices() {
         List<Device> deviceList = new ArrayList<>();
         File dbFile = new File(FILE_NAME);

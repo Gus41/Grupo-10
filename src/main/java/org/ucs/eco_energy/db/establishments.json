@@ -2,8 +2,53 @@
   {
     "id": 0,
     "name": "Teste",
+    "devices": [],
+    "users": []
+  },
+  {
+    "id": 1,
     "devices": [
+      {
+        "id": 1,
+        "name": "CCC",
+        "power": 333.0,
+        "timeUse": 2.0,
+        "category": "ELETRONICS"
+      }
     ],
     "users": []
+  },
+  {
+    "id": 2,
+    "devices": [
+      {
+        "id": 2,
+        "name": "Device with incremental ID",
+        "power": 55555.0,
+        "timeUse": 1.0,
+        "category": "ELETRONICS"
+      }
+    ],
+    "users": []
+  },
+  {
+    "id": 3,
+    "name": "GGG",
+    "devices": [
+      {
+        "id": 3,
+        "name": "GGG",
+        "power": 44.0,
+        "timeUse": 4.0,
+        "category": "ELETRONICS"
+      }
+    ],
+    "users": [
+      {
+        "username": "GGG",
+        "password": "GGG",
+        "contact": "GGG"
+      }
+    ]
   }
 ]

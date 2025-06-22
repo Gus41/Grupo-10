@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import org.ucs.eco_energy.models.Device;
 import org.ucs.eco_energy.models.Establishment;
+import org.ucs.eco_energy.models.User;
 import org.ucs.eco_energy.repositories.EstablishmentRepository;
 import org.ucs.eco_energy.services.ScreenService;
 
@@ -30,7 +31,7 @@ public class AddEstablishmentScreen extends JPanel {
     private JTextField nameField;
     private EstablishmentRepository establishmentRepository = new EstablishmentRepository();
 
-    public AddEstablishmentScreen(String username) {
+    public AddEstablishmentScreen(User user) {
         this.username = username;
 
         setLayout(new GridBagLayout());
@@ -86,7 +87,9 @@ public class AddEstablishmentScreen extends JPanel {
 
                 Device[] devices = {};
                 Establishment newEstablishment = new Establishment();
-                //newEstablishment.addUser(username);
+                newEstablishment.addUser(user);
+                newEstablishment.setName(name);
+
                 establishmentRepository.addEstablishment(newEstablishment);
                 ScreenService.changeScreen(new DashBoard(newEstablishment));
                 nameField.setText("");

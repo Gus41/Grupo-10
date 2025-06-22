@@ -2,15 +2,70 @@
   {
     "id": 0,
     "name": "Computador",
-    "category": "Eletrônicos",
     "power": 10.0,
     "timeUse": 10.0
   },
   {
     "id": 0,
     "name": "Máquina de lavar roupas",
-    "category": "Eletrodomésticos",
     "power": 25.0,
-    "timeUse": 10.0
+    "timeUse": 10.0,
+    "category": "ELETRODOMESTICOS"
+  },
+  {
+    "id": 0,
+    "name": "Device Name",
+    "power": 1500.0,
+    "timeUse": 5.0,
+    "category": "ELETRONICS"
+  },
+  {
+    "id": 0,
+    "name": "TEsteDeRepositor",
+    "power": 100.0,
+    "timeUse": 1.0,
+    "category": "ELETRONICS"
+  },
+  {
+    "id": 0,
+    "name": "aaaaa",
+    "power": 11.0,
+    "timeUse": 11.0,
+    "category": "ELETRONICS"
+  },
+  {
+    "id": 0,
+    "name": "aa",
+    "power": 22.0,
+    "timeUse": 22.0,
+    "category": "ELETRONICS"
+  },
+  {
+    "id": 0,
+    "name": "aaaaaaaaaaaaaaaaa",
+    "power": 55.0,
+    "timeUse": 5.0,
+    "category": "ELETRONICS"
+  },
+  {
+    "id": 0,
+    "name": "CCC",
+    "power": 333.0,
+    "timeUse": 2.0,
+    "category": "ELETRONICS"
+  },
+  {
+    "id": 1,
+    "name": "Device with incremental ID",
+    "power": 55555.0,
+    "timeUse": 1.0,
+    "category": "ELETRONICS"
+  },
+  {
+    "id": 2,
+    "name": "GGG",
+    "power": 44.0,
+    "timeUse": 4.0,
+    "category": "ELETRONICS"
   }
 ]

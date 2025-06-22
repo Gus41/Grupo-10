@@ -197,7 +197,7 @@ public class LoginRegisterScreen extends JPanel {
         } else {
             User newUser = new User(username, password, contact);
             userRepository.addUser(newUser);
-            ScreenService.changeScreen(new AddEstablishmentScreen(username));
+            ScreenService.changeScreen(new AddEstablishmentScreen(newUser));
         }
     }
 
