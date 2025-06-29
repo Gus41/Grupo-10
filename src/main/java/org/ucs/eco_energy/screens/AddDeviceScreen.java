@@ -52,12 +52,10 @@ public class AddDeviceScreen extends JPanel {
 
         // --- Name Field ---
         JLabel nameLabel = new JLabel("Device Name:");
-        // ... (styling as before)
         nameLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         nameLabel.setForeground(Color.WHITE);
         formPanel.add(nameLabel);
         nameField = new JTextField();
-        // ... (styling as before)
         nameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
         nameField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         nameField.setForeground(Color.BLACK);
@@ -69,12 +67,10 @@ public class AddDeviceScreen extends JPanel {
 
         // --- Power Field ---
         JLabel powerLabel = new JLabel("Power Device (Watts):"); // Be specific with unit
-        // ... (styling as before)
         powerLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         powerLabel.setForeground(Color.WHITE);
         formPanel.add(powerLabel);
         powerField = new JTextField();
-        // ... (styling as before)
         powerField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
         powerField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         powerField.setForeground(Color.BLACK);
@@ -85,12 +81,10 @@ public class AddDeviceScreen extends JPanel {
 
         // --- Time Field ---
         JLabel timeLabel = new JLabel("Time of Use (hours/day):"); // Be specific
-        // ... (styling as before)
         timeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         timeLabel.setForeground(Color.WHITE);
         formPanel.add(timeLabel);
         timeField = new JTextField();
-        // ... (styling as before)
         timeField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
         timeField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         timeField.setForeground(Color.BLACK);
@@ -102,13 +96,11 @@ public class AddDeviceScreen extends JPanel {
 
         // --- Category ComboBox ---
         JLabel categoryLabel = new JLabel("Category:");
-        // ... (styling as before)
         categoryLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         categoryLabel.setForeground(Color.WHITE);
         formPanel.add(categoryLabel);
-        categoryComboBox = new JComboBox<Category>(); // Correctly typed
+        categoryComboBox = new JComboBox<Category>();
         updateCategoryComboBox();
-        // ... (styling as before)
         categoryComboBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
         categoryComboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         categoryComboBox.setForeground(Color.BLACK);
@@ -119,7 +111,6 @@ public class AddDeviceScreen extends JPanel {
 
         // --- Add Button ---
         JButton addButton = new JButton("Add Device");
-        // ... (styling as before)
         addButton.setBackground(new Color(70, 130, 180));
         addButton.setForeground(Color.WHITE);
         addButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -175,7 +166,7 @@ public class AddDeviceScreen extends JPanel {
             Category selectedEnumCategory; 
             selectedEnumCategory = (Category) categoryComboBox.getSelectedItem(); 
 
-            if (selectedEnumCategory == null) { // Should not happen if combobox is populated, but good check
+            if (selectedEnumCategory == null) {
                 JOptionPane.showMessageDialog(this, "Please select a category.", "Validation Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -186,34 +177,30 @@ public class AddDeviceScreen extends JPanel {
             AddDeviceRepository addDeviceRepository = new AddDeviceRepository();
             try {
                 addDeviceRepository.saveDevice(newDevice,establishment);
-                System.out.println("Antes de trocar de tela");
+                establishment.addDevice(newDevice);
                 ScreenService.changeScreen(new DashBoard(establishment));
                 System.out.println("Antes de trocar de tela");
 
 
-            } catch (Exception ex) { // Catch potential exceptions from saving
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error saving device: " + ex.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace(); // For debugging
+                ex.printStackTrace();
             }
         });
 
         formPanel.add(addButton);
         add(formPanel, BorderLayout.CENTER);
 
-        // Initialize newCategoryField if you plan to use it
-        //newCategoryField = new JTextField();
-        // You would also need to add it to a panel, likely near categoryComboBox,
-        // and manage its visibility/enabled state based on a checkbox or "Other" selection.
     }
 
     private void updateCategoryComboBox() {
         categoryComboBox.removeAllItems();
         for (Category category : Category.values()) {
-            categoryComboBox.addItem(category); // Adds the enum constant itself
+            categoryComboBox.addItem(category);
         }
-        // Optionally set a default selection
+
         if (categoryComboBox.getItemCount() > 0) {
-            categoryComboBox.setSelectedIndex(0); // Select the first item by default
+            categoryComboBox.setSelectedIndex(0);
         }
     }
 }

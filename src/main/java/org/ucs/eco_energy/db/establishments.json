@@ -50,5 +50,46 @@
         "contact": "GGG"
       }
     ]
+  },
+  {
+    "id": 4,
+    "name": "Teste33",
+    "devices": [
+      {
+        "id": 4,
+        "name": "Teste33",
+        "power": 25.0,
+        "timeUse": 2.0,
+        "category": "ELETRONICS"
+      },
+      {
+        "id": 5,
+        "name": "TEste44",
+        "power": 152.0,
+        "timeUse": 10.0,
+        "category": "ELETRONICS"
+      },
+      {
+        "id": 6,
+        "name": "Teste55",
+        "power": 74.0,
+        "timeUse": 4.0,
+        "category": "ELETRODOMESTICOS"
+      },
+      {
+        "id": 7,
+        "name": "Teste66",
+        "power": 1520.0,
+        "timeUse": 5.0,
+        "category": "ELETRONICS"
+      }
+    ],
+    "users": [
+      {
+        "username": "Teste33",
+        "password": "Teste33",
+        "contact": "Teste33"
+      }
+    ]
   }
 ]
